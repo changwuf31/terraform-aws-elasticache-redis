@@ -75,7 +75,7 @@ resource "aws_elasticache_replication_group" "default" {
 # CloudWatch Resources
 #
 resource "aws_cloudwatch_metric_alarm" "cache_cpu" {
-  count               = "${var.enabled == "true" ? 1 : 0}"
+  count               = "${var.enabled == "true" && var.notification_topic_arn != "" ? 1 : 0}"
   alarm_name          = "${module.label.id}-cpu-utilization"
   alarm_description   = "Redis cluster CPU utilization"
   comparison_operator = "GreaterThanThreshold"
@@ -97,7 +97,7 @@ resource "aws_cloudwatch_metric_alarm" "cache_cpu" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "cache_memory" {
-  count               = "${var.enabled == "true" ? 1 : 0}"
+  count               = "${var.enabled == "true" && var.notification_topic_arn != "" ? 1 : 0}"
   alarm_name          = "${module.label.id}-freeable-memory"
   alarm_description   = "Redis cluster freeable memory"
   comparison_operator = "LessThanThreshold"
