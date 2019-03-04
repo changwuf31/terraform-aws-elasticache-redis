@@ -19,11 +19,11 @@ output "host" {
 }
 
 output "configuration_endpoint_address" {
-  value       = "${aws_elasticache_replication_group.default.configuration_endpoint_address}"
+  value       = "${join("", aws_elasticache_replication_group.default.*.configuration_endpoint_address)}"
   description = "Configuration Endpoint Address"
 }
 
 output "primary_endpoint_address" {
-  value       = "${aws_elasticache_replication_group.default.primary_endpoint_address}"
+  value       = "${join("", aws_elasticache_replication_group.default.*.primary_endpoint_address)}"
   description = "Primary Endpoint Address"
 }
